@@ -1,0 +1,15 @@
+{
+  "target_period": "October 2024",
+  "input_chunk_length": 672,
+  "output_chunk_length": 48,
+  "num_stacks": 2,
+  "num_blocks": 1,
+  "num_layers": 2,
+  "layer_widths": 256,
+  "batch_size": 256,
+  "learning_rate": 0.0001795298114613222,
+  "n_epochs": 100,
+  "early_stopping_patience": 15,
+  "min_delta": 0.0001,
+  "random_state": 42
+}

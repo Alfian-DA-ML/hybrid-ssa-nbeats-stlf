@@ -1,0 +1,45 @@
+# Pinned to the environment that produced the manuscript's reported
+# results (Tables 8-15). Install with: pip install -r requirements.txt
+#
+# Reproducibility note: darts, torch, numpy, and pytorch-lightning
+# versions matter for exact numerical reproduction of training runs
+# (weight initialization, dataloader behavior, early-stopping timing).
+# Using different versions may still converge, but epoch counts and
+# runtimes (Table 15) may differ from what is reported.
+#
+# NOTE: the +cu121 builds below (torch, torchaudio, torchvision) are not
+# on PyPI. Install with:
+#   pip install -r requirements.txt --extra-index-url https://download.pytorch.org/whl/cu121
+
+darts==0.36.0
+u8darts==0.38.0
+torch==2.5.1+cu121
+torchaudio==2.5.1+cu121
+torchvision==0.20.1+cu121
+pytorch-lightning==2.3.0
+lightning==2.5.2
+numpy==2.2.6
+pandas==2.3.3
+scipy==1.15.3
+scikit-learn==1.7.2
+
+# Hyperparameter search (tuning/ folder only, not needed for core pipeline)
+optuna==3.6.2
+optuna-integration==4.4.0
+
+# Data I/O
+pyarrow==20.0.0
+fastparquet==2024.11.0
+cramjam==2.10.0
+
+# Plotting / diagnostics (optional extras, not needed for core pipeline)
+matplotlib==3.10.7
+seaborn==0.13.2
+statsmodels==0.14.5
+
+# Logging
+tensorboardX==2.6.4
+PyYAML==6.0.2
+SQLAlchemy==2.0.42
+
+tqdm==4.67.1
