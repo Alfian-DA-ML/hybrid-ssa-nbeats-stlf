@@ -24,36 +24,9 @@ This repository implements and benchmarks **three forecasting scenarios**:
 
 All three scenarios are optimized with Bayesian hyperparameter search (TPE, via [Optuna](https://optuna.org/)) and evaluated on out-of-sample data using MAPE, MAE, RMSE, and R².
 
-The end-to-end pipeline is summarized below (see `Graphical_abstract.png` for the full diagram):
+The end-to-end pipeline is summarized below:
 
-```
-Time series data
-      │
-      ▼
-Forecasting framework ──────────────────────────┐
-      │                                          │
-      ▼                                          ▼
- SSA-process                              N-BEATS (baseline)
- (decomposition → auto-grouping                  │
-  → reconstruction)                              │
-      │                                          │
-      ▼                                          │
- Deterministic signal                            │
-   │           │                                 │
-   ▼           ▼                                 │
- Denoising   Trend / Seasonal split               │
- (1 model)   (2 specialist models)                │
-      │           │                               │
-      └─────┬─────┴───────────────────────────────┘
-            ▼
-  Training & hyperparameter optimization (Optuna, TPE)
-            ▼
-  Build & train final models with optimal parameters
-            ▼
-  Rolling forecast (horizon = 48 steps)
-            ▼
-  Model performance evaluation (MAPE, MAE, RMSE, R²)
-```
+![Graphical abstract of the SSA-N-BEATS hybrid forecasting framework](./Graphical_abstract.png)
 
 ---
 
