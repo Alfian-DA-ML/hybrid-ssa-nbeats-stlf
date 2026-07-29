@@ -5,8 +5,8 @@ Reproducibility package for the manuscript:
 > **Multichannel SSA decomposition in a hybrid SSA–N-BEATS framework for complex time series forecasting**
 > Alfian Adi Pratama, Putriaji Hendikawati
 > Department of Mathematics, Universitas Negeri Semarang, Indonesia
-> *MethodsX* (Elsevier) — **manuscript in review / submission process. DOI and citation will be added here once available.**
-> 📄 Manuscript link: `[TO BE ADDED]`
+> _MethodsX_ (Elsevier) — **manuscript in review / submission process. DOI and citation will be added here once available.**
+> Manuscript link: `[UNDER REVIEW]`
 
 ---
 
@@ -16,10 +16,10 @@ Forecasting high-resolution time series (e.g. electric load data) is difficult b
 
 This repository implements and benchmarks **three forecasting scenarios**:
 
-| Scenario | Description |
-|---|---|
-| **1. N-BEATS (baseline)** | A single N-BEATS model trained directly on the raw series, with no decomposition. |
-| **2. Hybrid SSA–N-BEATS (Denoising)** | Singular Spectrum Analysis (SSA) is used to separate the deterministic signal from stochastic noise. The denoised signal is fed into a single N-BEATS model. |
+| Scenario                                 | Description                                                                                                                                                                                                                                                       |
+| ---------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **1. N-BEATS (baseline)**                | A single N-BEATS model trained directly on the raw series, with no decomposition.                                                                                                                                                                                 |
+| **2. Hybrid SSA–N-BEATS (Denoising)**    | Singular Spectrum Analysis (SSA) is used to separate the deterministic signal from stochastic noise. The denoised signal is fed into a single N-BEATS model.                                                                                                      |
 | **3. Hybrid SSA–N-BEATS (Multichannel)** | The deterministic signal from SSA is further split into a **trend** component and a **seasonal** component (via a weighted-correlation auto-grouping mechanism), each modeled independently by a specialist N-BEATS model. Predictions are combined by summation. |
 
 All three scenarios are optimized with Bayesian hyperparameter search (TPE, via [Optuna](https://optuna.org/)) and evaluated on out-of-sample data using MAPE, MAE, RMSE, and R².
@@ -63,48 +63,54 @@ In short: **the code in `src/` and `notebooks/` is dataset-agnostic; only the nu
 ```
 
 ### `configs/`
+
 JSON files holding the exact, final hyperparameters used to train each scenario (matches Tables 5, 6, and 8 in the manuscript). Notebooks read these at runtime — nothing is hardcoded in the training cells.
 
-| File | Scenario |
-|---|---|
-| `nbeats_baseline.json` | Scenario 1 — N-BEATS baseline |
-| `ssa_nbeats_denoising.json` | Scenario 2 — SSA–N-BEATS denoising |
-| `ssa_nbeats_multichannel_trend.json` | Scenario 3 — trend specialist model |
+| File                                    | Scenario                               |
+| --------------------------------------- | -------------------------------------- |
+| `nbeats_baseline.json`                  | Scenario 1 — N-BEATS baseline          |
+| `ssa_nbeats_denoising.json`             | Scenario 2 — SSA–N-BEATS denoising     |
+| `ssa_nbeats_multichannel_trend.json`    | Scenario 3 — trend specialist model    |
 | `ssa_nbeats_multichannel_seasonal.json` | Scenario 3 — seasonal specialist model |
 
 ### `data/`
+
 - `desember_cleaned_2024.parquet` — the cleaned electric load series. **Confidential**, provided under agreement with PLN UP2B Central Java & D.I. Yogyakarta; not redistributable (see the manuscript's Ethics Statement). It is included here for the authors' own reproduction workflow — external users should supply their own series in the same schema.
 - `README.md` — describes the expected data schema (columns, frequency) so you can substitute your own dataset.
 
 ### `notebooks/`
+
 One notebook per scenario, each self-contained: load & split data → (SSA decomposition, where applicable) → train → rolling forecast → evaluate (MAPE, MAE, RMSE, R²). No hyperparameter search or plotting/diagnostic code is included here — see `tuning/` and Section 5 below.
 
-| Notebook | Scenario |
-|---|---|
-| `01_scenario1_nbeats_baseline.ipynb` | N-BEATS baseline — calls Darts directly (no SSA involved) |
-| `02_scenario2_ssa_nbeats_denoising.ipynb` | Hybrid SSA–N-BEATS, denoising |
-| `03_scenario3_ssa_nbeats_multichannel.ipynb` | Hybrid SSA–N-BEATS, multichannel (trend + seasonal) |
+| Notebook                                     | Scenario                                                  |
+| -------------------------------------------- | --------------------------------------------------------- |
+| `01_scenario1_nbeats_baseline.ipynb`         | N-BEATS baseline — calls Darts directly (no SSA involved) |
+| `02_scenario2_ssa_nbeats_denoising.ipynb`    | Hybrid SSA–N-BEATS, denoising                             |
+| `03_scenario3_ssa_nbeats_multichannel.ipynb` | Hybrid SSA–N-BEATS, multichannel (trend + seasonal)       |
 
 `logs_ta/` and `logs_skripsi/` (created automatically when a notebook is run) hold Lightning `CSVLogger` training logs (`metrics.csv`, `hparams.yaml`) — useful for inspecting the training/validation loss curve and confirming when early stopping triggered.
 
 ### `src/`
+
 Reusable, dataset-agnostic modules implementing the method itself (Tables 1, 3–7 and Figs. 1–3 of the manuscript). Every notebook imports from here rather than redefining logic inline.
 
-| Module | Contents |
-|---|---|
-| `ssa_module.py` | Core SSA engine: `embed`, `decompose` (Broomhead–King eigendecomposition trick), `diagonal_averaging`, `reconstruct`, and the top-level `SSA()` function |
-| `w_correlation.py` | `compute_w_correlation()` — weighted correlation matrix between reconstructed components |
-| `grouping.py` | `auto_group_deterministic()` (threshold-based RC selection) and `split_trend_seasonal()` (RC1 = trend, rest = seasonal) |
-| `rolling_forecast.py` | `rolling_forecast_denoising()` and `rolling_forecast_multichannel()` — walk-forward forecasting with SSA re-decomposition at every step |
-| `evaluation.py` | `evaluate_series()`, `historical_forecast_metrics()`, `historical_forecast_metrics_multichannel()`, `print_evaluation_report()` — MAPE/MAE/RMSE/R² utilities |
-| `__init__.py` | Public API — `from src import ...` |
+| Module                | Contents                                                                                                                                                     |
+| --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `ssa_module.py`       | Core SSA engine: `embed`, `decompose` (Broomhead–King eigendecomposition trick), `diagonal_averaging`, `reconstruct`, and the top-level `SSA()` function     |
+| `w_correlation.py`    | `compute_w_correlation()` — weighted correlation matrix between reconstructed components                                                                     |
+| `grouping.py`         | `auto_group_deterministic()` (threshold-based RC selection) and `split_trend_seasonal()` (RC1 = trend, rest = seasonal)                                      |
+| `rolling_forecast.py` | `rolling_forecast_denoising()` and `rolling_forecast_multichannel()` — walk-forward forecasting with SSA re-decomposition at every step                      |
+| `evaluation.py`       | `evaluate_series()`, `historical_forecast_metrics()`, `historical_forecast_metrics_multichannel()`, `print_evaluation_report()` — MAPE/MAE/RMSE/R² utilities |
+| `__init__.py`         | Public API — `from src import ...`                                                                                                                           |
 
 The N-BEATS baseline scenario does not use `src/rolling_forecast.py`, since it needs no SSA re-decomposition per step; it calls Darts' `NBEATSModel.predict()` directly inside `01_scenario1_nbeats_baseline.ipynb`.
 
 ### `tuning/`
+
 Bayesian (TPE) hyperparameter search scripts, one per scenario, using [Optuna](https://optuna.org/). **These are optional** and not required to reproduce the manuscript's results — they were used once to produce the values already saved in `configs/*.json`. Re-run them only if you want to re-tune from scratch (each search takes hours on a GPU; see Table 14 in the manuscript). Each script writes its study to a local SQLite file so a search can be resumed if interrupted.
 
 ### `results/`
+
 Empty by default (`.gitkeep` only) — local scratch space for forecast outputs, plots, or exported metrics you generate while running the notebooks. Not versioned.
 
 ---
@@ -153,4 +159,4 @@ This manuscript is currently in the review/submission process. A full citation (
 
 ## License
 
-See [`LICENSE`](./LICENSE).
+See [`LICENSE`](https://github.com/Alfian-DA-ML/hybrid-ssa-nbeats-stlf/blob/main/LICENSE).
