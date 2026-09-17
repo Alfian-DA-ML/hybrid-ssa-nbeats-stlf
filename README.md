@@ -6,7 +6,7 @@ Reproducibility package for the manuscript:
 > Alfian Adi Pratama, Putriaji Hendikawati
 > Department of Mathematics, Universitas Negeri Semarang, Indonesia
 > _MethodsX_ (Elsevier) — **manuscript in review / submission process. DOI and citation will be added here once available.**
-> Manuscript link: `[UNDER REVIEW]`
+> Manuscript link: `[ACCEPTED, PUBLICATION IN PROGRESS]`
 
 ---
 
@@ -26,7 +26,7 @@ All three scenarios are optimized with Bayesian hyperparameter search (TPE, via 
 
 The end-to-end pipeline is summarized below:
 
-![Graphical abstract of the SSA-N-BEATS hybrid forecasting framework](./Graphical_abstract.png)
+![Graphical abstract of the SSA-N-BEATS hybrid forecasting framework](./graphical_abstract.png)
 
 ---
 
