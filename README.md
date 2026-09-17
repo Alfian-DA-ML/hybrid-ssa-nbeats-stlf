@@ -3,7 +3,7 @@
 Reproducibility package for the manuscript:
 
 > **Multichannel SSA decomposition in a hybrid SSA–N-BEATS framework for complex time series forecasting**
-> Alfian Adi Pratama, Putriaji Hendikawati
+> Alfian Adi Pratama, Dr. Putriaji Hendikawati, S.Si., M.Pd., M.Sc.
 > Department of Mathematics, Universitas Negeri Semarang, Indonesia
 > _MethodsX_ (Elsevier) — **manuscript in review / submission process. DOI and citation will be added here once available.**
 > Manuscript link: `[ACCEPTED, PUBLICATION IN PROGRESS]`
