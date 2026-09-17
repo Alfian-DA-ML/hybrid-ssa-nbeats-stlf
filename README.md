@@ -26,7 +26,7 @@ All three scenarios are optimized with Bayesian hyperparameter search (TPE, via 
 
 The end-to-end pipeline is summarized below:
 
-![Graphical abstract of the SSA-N-BEATS hybrid forecasting framework](./graphical_abstract.png)
+![Graphical abstract of the SSA-N-BEATS hybrid forecasting framework](./framework.png)
 
 ---
 
