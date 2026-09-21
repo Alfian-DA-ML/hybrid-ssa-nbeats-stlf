@@ -10,4 +10,4 @@ wheels/
 .venv
 
 # Data
-data/
+data/desember_cleaned_2024.parquet

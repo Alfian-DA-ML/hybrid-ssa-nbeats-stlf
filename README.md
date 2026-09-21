@@ -145,7 +145,7 @@ uv pip install -r requirements.txt
 
 ## 5. Usage
 
-1. Place your dataset in `data/` following the schema in `data/README.md` (or use the provided confidential file, if you have access to it).
+1. Place your dataset in `data/`.
 2. Run the notebooks in `notebooks/` in order (`01` → `02` → `03`), or independently — each is self-contained.
 3. Each notebook prints a final evaluation report (MAPE, MAE, RMSE, R²) for the training, validation, and out-of-sample sets.
 4. To reproduce a different period or dataset, see [Section 2 — Reproducibility](#2-reproducibility) above.
