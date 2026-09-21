@@ -6,7 +6,7 @@ Reproducibility package for the manuscript:
 > Alfian Adi Pratama, Dr. Putriaji Hendikawati, S.Si., M.Pd., M.Sc.
 > Department of Mathematics, Universitas Negeri Semarang, Indonesia
 > _MethodsX_ (Elsevier).
-> Manuscript link: `[ACCEPTED, PUBLICATION IN PROGRESS]`
+> Manuscript link: [Link](https://www.sciencedirect.com/science/article/pii/S2215016126003857)
 
 ---
 
