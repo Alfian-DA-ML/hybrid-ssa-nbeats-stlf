@@ -5,7 +5,7 @@ Reproducibility package for the manuscript:
 > **Multichannel SSA decomposition in a hybrid SSA–N-BEATS framework for complex time series forecasting**
 > Alfian Adi Pratama, Dr. Putriaji Hendikawati, S.Si., M.Pd., M.Sc.
 > Department of Mathematics, Universitas Negeri Semarang, Indonesia
-> _MethodsX_ (Elsevier) — **manuscript in review / submission process. DOI and citation will be added here once available.**
+> _MethodsX_ (Elsevier)
 > Manuscript link: `[ACCEPTED, PUBLICATION IN PROGRESS]`
 
 ---
@@ -19,8 +19,8 @@ This repository implements and benchmarks **three forecasting scenarios**:
 | Scenario                                 | Description                                                                                                                                                                                                                                                       |
 | ---------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **1. N-BEATS (baseline)**                | A single N-BEATS model trained directly on the raw series, with no decomposition.                                                                                                                                                                                 |
-| **2. Hybrid SSA–N-BEATS (Denoising)**    | Singular Spectrum Analysis (SSA) is used to separate the deterministic signal from stochastic noise. The denoised signal is fed into a single N-BEATS model.                                                                                                      |
-| **3. Hybrid SSA–N-BEATS (Multichannel)** | The deterministic signal from SSA is further split into a **trend** component and a **seasonal** component (via a weighted-correlation auto-grouping mechanism), each modeled independently by a specialist N-BEATS model. Predictions are combined by summation. |
+| **2. Hybrid SSA–N-BEATS (denoising)**    | Singular Spectrum Analysis (SSA) is used to separate the deterministic signal from stochastic noise. The denoised signal is fed into a single N-BEATS model.                                                                                                      |
+| **3. Hybrid SSA–N-BEATS (multichannel)** | The deterministic signal from SSA is further split into a **trend** component and a **seasonal** component (via a weighted-correlation auto-grouping mechanism), each modeled independently by a specialist N-BEATS model. Predictions are combined by summation. |
 
 All three scenarios are optimized with Bayesian hyperparameter search (TPE, via [Optuna](https://optuna.org/)) and evaluated on out-of-sample data using MAPE, MAE, RMSE, and R².
 
@@ -155,7 +155,7 @@ uv pip install -r requirements.txt
 
 ## Citation
 
-This manuscript is currently in the review/submission process. A full citation (DOI, volume, pages) will be added here once available. In the meantime, please contact the corresponding author (Putriaji Hendikawati, `putriaji.mat@mail.unnes.ac.id`) for citation information.
+This manuscript is currently in press. A full citation (DOI, volume, pages) will be added here once available. In the meantime, please contact the corresponding author (Putriaji Hendikawati, `putriaji.mat@mail.unnes.ac.id`) for citation information.
 
 ## License
 
