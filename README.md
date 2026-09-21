@@ -5,7 +5,7 @@ Reproducibility package for the manuscript:
 > **Multichannel SSA decomposition in a hybrid SSA–N-BEATS framework for complex time series forecasting**
 > Alfian Adi Pratama, Dr. Putriaji Hendikawati, S.Si., M.Pd., M.Sc.
 > Department of Mathematics, Universitas Negeri Semarang, Indonesia
-> _MethodsX_ (Elsevier)
+> _MethodsX_ (Elsevier).
 > Manuscript link: `[ACCEPTED, PUBLICATION IN PROGRESS]`
 
 ---
@@ -16,11 +16,11 @@ Forecasting high-resolution time series (e.g. electric load data) is difficult b
 
 This repository implements and benchmarks **three forecasting scenarios**:
 
-| Scenario                                 | Description                                                                                                                                                                                                                                                       |
-| ---------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **1. N-BEATS (baseline)**                | A single N-BEATS model trained directly on the raw series, with no decomposition.                                                                                                                                                                                 |
-| **2. Hybrid SSA–N-BEATS (denoising)**    | Singular Spectrum Analysis (SSA) is used to separate the deterministic signal from stochastic noise. The denoised signal is fed into a single N-BEATS model.                                                                                                      |
-| **3. Hybrid SSA–N-BEATS (multichannel)** | The deterministic signal from SSA is further split into a **trend** component and a **seasonal** component (via a weighted-correlation auto-grouping mechanism), each modeled independently by a specialist N-BEATS model. Predictions are combined by summation. |
+| Scenario                                 | Description                                                                                                                                                                                                                                                                                   |
+| ---------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **1. N-BEATS (baseline)**                | A single N-BEATS model trained directly on the raw series, with no decomposition.                                                                                                                                                                                                             |
+| **2. Hybrid SSA–N-BEATS (denoising)**    | Singular Spectrum Analysis (SSA) is used to separate the deterministic signal from stochastic noise. The denoised signal is fed into a single N-BEATS model.                                                                                                                                  |
+| **3. Hybrid SSA–N-BEATS (multichannel)** | The deterministic signal from SSA is further split into a **trend** component and a **seasonal** component (via a weighted-correlation auto-grouping mechanism), each modeled independently by a specialist N-BEATS model (for trend, and components). Predictions are combined by summation. |
 
 All three scenarios are optimized with Bayesian hyperparameter search (TPE, via [Optuna](https://optuna.org/)) and evaluated on out-of-sample data using MAPE, MAE, RMSE, and R².
 
@@ -66,12 +66,12 @@ In short: **the code in `src/` and `notebooks/` is dataset-agnostic; only the nu
 
 JSON files holding the exact, final hyperparameters used to train each scenario (matches Tables 5, 6, and 8 in the manuscript). Notebooks read these at runtime — nothing is hardcoded in the training cells.
 
-| File                                    | Scenario                               |
-| --------------------------------------- | -------------------------------------- |
-| `nbeats_baseline.json`                  | Scenario 1 — N-BEATS baseline          |
-| `ssa_nbeats_denoising.json`             | Scenario 2 — SSA–N-BEATS denoising     |
-| `ssa_nbeats_multichannel_trend.json`    | Scenario 3 — trend specialist model    |
-| `ssa_nbeats_multichannel_seasonal.json` | Scenario 3 — seasonal specialist model |
+| File                                    | Scenario                                     |
+| --------------------------------------- | -------------------------------------------- |
+| `nbeats_baseline.json`                  | N-BEATS (baseline)                           |
+| `ssa_nbeats_denoising.json`             | Hybrid SSA–N-BEATS (denoising)               |
+| `ssa_nbeats_multichannel_trend.json`    | Hybrid SSA–N-BEATS (multichannel) - trend    |
+| `ssa_nbeats_multichannel_seasonal.json` | Hybrid SSA–N-BEATS (multichannel) - seasonal |
 
 ### `data/`
 
@@ -82,11 +82,11 @@ JSON files holding the exact, final hyperparameters used to train each scenario 
 
 One notebook per scenario, each self-contained: load & split data → (SSA decomposition, where applicable) → train → rolling forecast → evaluate (MAPE, MAE, RMSE, R²). No hyperparameter search or plotting/diagnostic code is included here — see `tuning/` and Section 5 below.
 
-| Notebook                                     | Scenario                                                  |
-| -------------------------------------------- | --------------------------------------------------------- |
-| `01_scenario1_nbeats_baseline.ipynb`         | N-BEATS baseline — calls Darts directly (no SSA involved) |
-| `02_scenario2_ssa_nbeats_denoising.ipynb`    | Hybrid SSA–N-BEATS, denoising                             |
-| `03_scenario3_ssa_nbeats_multichannel.ipynb` | Hybrid SSA–N-BEATS, multichannel (trend + seasonal)       |
+| Notebook                                     | Scenario                                                    |
+| -------------------------------------------- | ----------------------------------------------------------- |
+| `01_scenario1_nbeats_baseline.ipynb`         | N-BEATS (baseline) — calls Darts directly (no SSA involved) |
+| `02_scenario2_ssa_nbeats_denoising.ipynb`    | Hybrid SSA–N-BEATS (denoising)                              |
+| `03_scenario3_ssa_nbeats_multichannel.ipynb` | Hybrid SSA–N-BEATS (multichannel) - trend and seasonal      |
 
 `logs_ta/` and `logs_skripsi/` (created automatically when a notebook is run) hold Lightning `CSVLogger` training logs (`metrics.csv`, `hparams.yaml`) — useful for inspecting the training/validation loss curve and confirming when early stopping triggered.
 
